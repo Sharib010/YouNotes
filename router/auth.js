@@ -42,14 +42,14 @@ router.post("/api/register", async (req, res) => {
   try {
     const userExist = await User.findOne({ email: email });
     if (userExist) {
-      return res.status(422).json({ error: "Email aleady exist" });
+      res.send({ error: "Email aleady exis" });
     } else if (password != cpassword) {
-      return res.status(422).json({ error: "paswword not matching" });
+      res.send({ error: "paswword not matching" });
     } else {
       const user = new User({ name, email, password, cpassword });
       const userRegister = await user.save();
       if (userRegister) {
-        res.status(201).json({ message: "data save successfully" });
+        res.send(userRegister)
       }
     }
   } catch (err) {
